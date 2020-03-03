@@ -1,0 +1,51 @@
+pragma solidity ^0.5.16;
+import "./DidResolver.sol";
+import "./IdentityProxy.sol";
+
+contract IdentityController {
+
+    DidResolver resolver = new DidResolver();
+
+    //assigning DID to Proxy address
+    mapping(address => address) idproxies;
+
+    event IdentityCreated(
+        address indexed creator,
+        address owner
+    );
+
+    modifier checkOwned(IdentityProxy proxy, address owner) {
+        require(isOwner(address(proxy), owner));
+        _;
+    }
+
+    function createIdentity(address owner, string memory pubKey) public returns(address) {
+        address registeredID = resolver.registerID(owner, pubKey);
+        //Trying to register user
+        if (registeredID == address(0)){
+            IdentityProxy proxy = new IdentityProxy();
+            idproxies[owner] = address(proxy);
+            emit IdentityCreated(msg.sender,owner);
+        }
+        
+        return registeredID;
+    }
+
+    function externalTransaction(owner, address destinationContract, uint value, bytes data) public returns(bool) {
+        forwardTo(identities[owner], owner, destinationContract, value, data);
+        return true;
+    }
+
+    function forwardTo(IdentityProxy proxy, address owner, address destinationContract, uint value, bytes memory data) internal checkOwned(proxy, owner) {
+        proxy.forward(destinationContract, value, data);
+    }
+
+    function isOwner(address proxy, address owner) private view returns(bool) {
+        bool owned = false;
+        if (idproxies[owner] == proxy){
+            owned = true;
+        }
+        return owned;
+    }
+
+}
