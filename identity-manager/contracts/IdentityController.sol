@@ -7,7 +7,7 @@ contract IdentityController {
     DidResolver resolver = new DidResolver();
 
     //assigning DID to Proxy address
-    mapping(address => address) idproxies;
+    mapping(address => IdentityProxy) idproxies;
 
     event IdentityCreated(
         address indexed creator,
@@ -24,15 +24,15 @@ contract IdentityController {
         //Trying to register user
         if (registeredID == address(0)){
             IdentityProxy proxy = new IdentityProxy();
-            idproxies[owner] = address(proxy);
+            idproxies[owner] = proxy;
             emit IdentityCreated(msg.sender,owner);
         }
         
         return registeredID;
     }
 
-    function externalTransaction(owner, address destinationContract, uint value, bytes data) public returns(bool) {
-        forwardTo(identities[owner], owner, destinationContract, value, data);
+    function externalTransaction(address owner, address destinationContract, uint value, bytes memory data) public returns(bool) {
+        forwardTo(idproxies[owner], owner, destinationContract, value, data);
         return true;
     }
 
@@ -42,7 +42,7 @@ contract IdentityController {
 
     function isOwner(address proxy, address owner) private view returns(bool) {
         bool owned = false;
-        if (idproxies[owner] == proxy){
+        if (address(idproxies[owner]) == proxy){
             owned = true;
         }
         return owned;
