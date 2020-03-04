@@ -1,6 +1,7 @@
 const lightwallet = require('eth-signer')
 
 const IdentityController = artifacts.require("IdentityController");
+const IdentityProxy = artifacts.require("IdentityProxy");
 
 contract('IdentityController', () => {
 
@@ -16,14 +17,17 @@ contract('IdentityController', () => {
     it('should interact with Election Contract', async () => {
         
         const IdentityControllerInstance = await IdentityController.deployed();
+        const IdentityProxyInstance = await IdentityProxy.deployed();
         let data = lightwallet.txutils._encodeFunctionTxData('vote', ['uint256'], [1])
         var error = false;
+        console.log(IdentityProxyInstance.address)
         try{
-            await IdentityControllerInstance.externalTransaction.call("0xf2E9F7CC0a5Da1b0beed3b12410A9231cE3b5e75",
+            await IdentityControllerInstance.forwardTo.call(IdentityProxyInstance.address, "0xf2E9F7CC0a5Da1b0beed3b12410A9231cE3b5e75",
                                                                     "0xbD35CBEe9f4399A66480B9eBB8397a6A8d6552d3",
-                                                                    1, '0x' + data);
+                                                                    0, '0x' + data);
         } catch (e){
             error = true;
+            console.log(e)
         }
         assert.equal(error, false);
     });

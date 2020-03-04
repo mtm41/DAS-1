@@ -30,14 +30,15 @@ contract IdentityController {
         
         return registeredID;
     }
-
+/*
     function externalTransaction(address owner, address destinationContract, uint value, bytes memory data) public returns(bool) {
         forwardTo(idproxies[owner], owner, destinationContract, value, data);
         return true;
     }
-
-    function forwardTo(IdentityProxy proxy, address owner, address destinationContract, uint value, bytes memory data) internal checkOwned(proxy, owner) {
-        proxy.forward(destinationContract, value, data);
+*/
+    function forwardTo(IdentityProxy proxy, address owner, address destinationContract, uint value, bytes memory data) public{
+        IdentityProxy proxy1 = new IdentityProxy();
+        proxy1.forward(destinationContract, value, data);
     }
 
     function isOwner(address proxy, address owner) private view returns(bool) {
