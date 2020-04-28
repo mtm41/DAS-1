@@ -12,6 +12,6 @@ module.exports = function(deployer) {
   deployer.deploy(IdentityController);
   deployer.link(ConvertLib, Election);
   deployer.deploy(Election);
-  deployer.link(ConvertLib, IdentityProxy);
-  deployer.deploy(IdentityProxy);
+  //deployer.link(ConvertLib, IdentityProxy);
+  //deployer.deploy(IdentityProxy);
 };

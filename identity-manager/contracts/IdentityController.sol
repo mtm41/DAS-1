@@ -2,7 +2,9 @@ pragma solidity ^0.5.16;
 import "./DidResolver.sol";
 import "./IdentityProxy.sol";
 
-contract IdentityController {
+import "./Owned.sol";
+
+contract IdentityController is Owned {
 
     DidResolver resolver = new DidResolver();
 
@@ -10,16 +12,11 @@ contract IdentityController {
     mapping(address => IdentityProxy) idproxies;
 
     event IdentityCreated(
-        address indexed creator,
-        address owner
+        address creator,
+        address indexed owner
     );
 
-    modifier checkOwned(IdentityProxy proxy, address owner) {
-        require(isOwner(address(proxy), owner));
-        _;
-    }
-
-    function createIdentity(address owner, string memory pubKey) public returns(address) {
+    function createIdentity(address owner, string memory pubKey) public checkOwned returns(address) {
         address registeredID = resolver.registerID(owner, pubKey);
         //Trying to register user
         if (registeredID == address(0)){
@@ -36,7 +33,12 @@ contract IdentityController {
         return true;
     }
 */
-    function forwardTo(IdentityProxy proxy, address owner, address destinationContract, uint value, bytes memory data) public{
+    function forwardTo(address owner, address destinationContract, uint value, bytes memory data) public{
+        IdentityProxy proxy1 = idproxies[owner];
+        proxy1.forward(destinationContract, value, data);
+    }
+
+    function forwardToTest(address owner, address destinationContract, uint value, bytes memory data) public{
         IdentityProxy proxy1 = new IdentityProxy();
         proxy1.forward(destinationContract, value, data);
     }

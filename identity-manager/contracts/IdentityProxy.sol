@@ -27,4 +27,8 @@ contract IdentityProxy is Owned {
             success := call(gas, dest, value, add(data, 0x20), mload(data), 0, 0)
         }
     }
+
+    function selfDestroy() public checkOwned {
+        selfdestruct(msg.sender);
+    }
 }

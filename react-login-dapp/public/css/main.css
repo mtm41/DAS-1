@@ -1,7 +1,3 @@
-
-
-
-
 /*//////////////////////////////////////////////////////////////////
 [ FONT ]*/
 
@@ -55,8 +51,27 @@ a {
   -moz-transition: all 0.4s;
 }
 
+i .icon-title {
+  font-weight: bolder;
+  font-size: xx-large;
+  font-family: fantasy;
+}
+
+.wrap-input100 i {
+  color: white;
+}
+
 a:focus {
 	outline: none !important;
+}
+
+#profile-font {
+  font-weight: bolder;
+}
+
+#profile {
+  margin: 1%;
+  padding: 1%;
 }
 
 a:hover {
@@ -79,9 +94,24 @@ p {
 
 ul, li {
 	margin: 0px;
-	list-style-type: none;
+  list-style-type: none;
+  display: inline-block;
 }
 
+.navegator {
+  margin: 2%;
+  text-align: left;
+  font-weight: bolder;
+}
+
+.navigator .navegator-list li {
+ display: inline;
+ padding: 5%;
+}
+
+nav ul li {
+  display: inline-block;
+} 
 
 /*---------------------------------------------*/
 input {

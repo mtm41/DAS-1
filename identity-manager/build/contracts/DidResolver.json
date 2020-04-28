@@ -83,7 +83,7 @@
         "id": 19,
         "nodeType": "ImportDirective",
         "scope": 186,
-        "sourceUnit": 685,
+        "sourceUnit": 684,
         "src": "25:21:1",
         "symbolAliases": [],
         "unitAlias": ""
@@ -97,10 +97,10 @@
               "id": 20,
               "name": "Owned",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 684,
+              "referencedDeclaration": 683,
               "src": "73:5:1",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_Owned_$684",
+                "typeIdentifier": "t_contract$_Owned_$683",
                 "typeString": "contract Owned"
               }
             },
@@ -110,7 +110,7 @@
           }
         ],
         "contractDependencies": [
-          684
+          683
         ],
         "contractKind": "contract",
         "documentation": null,
@@ -118,7 +118,7 @@
         "id": 185,
         "linearizedBaseContracts": [
           185,
-          684
+          683
         ],
         "name": "DidResolver",
         "nodeType": "ContractDefinition",
@@ -424,7 +424,7 @@
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 699,
+                        "referencedDeclaration": 698,
                         "src": "456:3:1",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_message",
@@ -1642,7 +1642,7 @@
                   "name": "checkOwned",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 662,
+                  "referencedDeclaration": 661,
                   "src": "921:10:1",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$__$",
@@ -2143,7 +2143,7 @@
                   "name": "checkOwned",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 662,
+                  "referencedDeclaration": 661,
                   "src": "1582:10:1",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$__$",
@@ -2263,7 +2263,7 @@
         "id": 19,
         "nodeType": "ImportDirective",
         "scope": 186,
-        "sourceUnit": 685,
+        "sourceUnit": 684,
         "src": "25:21:1",
         "symbolAliases": [],
         "unitAlias": ""
@@ -2277,10 +2277,10 @@
               "id": 20,
               "name": "Owned",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 684,
+              "referencedDeclaration": 683,
               "src": "73:5:1",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_Owned_$684",
+                "typeIdentifier": "t_contract$_Owned_$683",
                 "typeString": "contract Owned"
               }
             },
@@ -2290,7 +2290,7 @@
           }
         ],
         "contractDependencies": [
-          684
+          683
         ],
         "contractKind": "contract",
         "documentation": null,
@@ -2298,7 +2298,7 @@
         "id": 185,
         "linearizedBaseContracts": [
           185,
-          684
+          683
         ],
         "name": "DidResolver",
         "nodeType": "ContractDefinition",
@@ -2604,7 +2604,7 @@
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 699,
+                        "referencedDeclaration": 698,
                         "src": "456:3:1",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_message",
@@ -3822,7 +3822,7 @@
                   "name": "checkOwned",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 662,
+                  "referencedDeclaration": 661,
                   "src": "921:10:1",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$__$",
@@ -4323,7 +4323,7 @@
                   "name": "checkOwned",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 662,
+                  "referencedDeclaration": 661,
                   "src": "1582:10:1",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$__$",
@@ -4422,7 +4422,7 @@
   },
   "networks": {},
   "schemaVersion": "3.0.23",
-  "updatedAt": "2020-03-03T15:58:41.552Z",
+  "updatedAt": "2020-03-12T09:10:33.011Z",
   "devdoc": {
     "methods": {}
   },

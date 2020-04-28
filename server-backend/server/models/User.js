@@ -1,21 +1,55 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+require('mongoose-double')(mongoose);
 
+var SchemaTypes = mongoose.Schema.Types;
 const UserSchema = new mongoose.Schema({
   email: {
     type: String,
-    lowercase: true,
     unique: true,
+    index: true
+  },
+  username: {
+    type: String,
+    unique: true,
+    index: true
+  },
+  DID: {
+    type: String,
+    unique: true,
+    index: true
+  },
+  Ether: {
+    type: SchemaTypes.Number,
+    required: true
+  },
+  Telephone: {
+    type: String,
     required: true
   },
   password: {
     type: String,
     required: true
   },
-  role: {
+  active: {
+    type: Boolean,
+    default: false
+  },
+  activeToken: {
     type: String,
-    enum: ['Client', 'Manager', 'Admin'],
-    default: 'Client'
+    required: true
+  },
+  activeExpires: {
+    type: Date,
+    required: true
+  },
+  lastInteractionVerification: {
+    type: Date,
+    required: false
+  },
+  lastCode: {
+    type: String,
+    required: false
   }
 });
 
@@ -23,7 +57,7 @@ UserSchema.pre('save', function(next) {
   let user = this;
 
   if (this.isModified('password') || this.isNew) {
-    bcrypt.genSalt(10, (err, salt) => {
+    bcrypt.genSalt(10, (err, salt) => { // 10 is the default work factor to obtain a valid salt
       if (err) {
         console.log(err);
         return next(err);
@@ -55,4 +89,5 @@ UserSchema.methods.comparePassword = function(pw, cb) {
   });
 };
 
-module.exports = mongoose.model('User', UserSchema);
+//module.exports = mongoose.model('User', UserSchema);
+module.exports = UserSchema
