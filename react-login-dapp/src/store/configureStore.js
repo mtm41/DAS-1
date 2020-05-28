@@ -1,3 +1,4 @@
+// Configuration Store needed for sagas and reducers
 import { createStore, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 

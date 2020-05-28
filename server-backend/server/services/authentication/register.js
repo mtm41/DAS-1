@@ -1,6 +1,5 @@
 'use strict';
 const mongoose = require('mongoose');
-const express = require('express');
 const UserSchema = require('../../models/User');
 const User = mongoose.model('User', UserSchema);
 const req = require('request')
@@ -40,7 +39,6 @@ function registerUser(request, response) {
   mongoose.connect(db.database, options, function(error) {
     
     // Check error in initial connection. There is no 2nd param to the callback.
-    console.log('Se va a intentar registrar un usuario')
     var email = xss(sanitize(request.body.email))
     var username = xss(sanitize(request.body.username))
     var phone = xss(sanitize(request.body.phone))
@@ -50,8 +48,8 @@ function registerUser(request, response) {
     if (!email || !password) {
       response.json(httpResponses.onValidationError);
     } else {
-      var randomHotBitsKey = 'HB1hSRsDEF8TWdksq9Ihz3w8mGF'
-      req("https://www.fourmilab.ch/cgi-bin/Hotbits.api?nbytes=18&fmt=password&npass=1&lpass=18&pwtype=2&apikey=" + randomHotBitsKey + "&pseudo=pseudo",
+      var randomHotBitsKey = process.env.HOTBITSKEY;
+      req("https://www.fourmilab.ch/cgi-bin/Hotbits.api?nbytes=18&fmt=password&npass=1&lpass=18&pwtype=2&apikey=" + randomHotBitsKey,
       (err, res, body) => {
         if (err) { return console.log(err); }
         var token = parse.parse(body).querySelector("textarea").rawText.replace(/\n/g, '')
@@ -59,7 +57,7 @@ function registerUser(request, response) {
         let newUser = new User({
           email: email,
           username: username,
-          DID: 'as7sasasaas', //generate DID
+          DID: 'as7sasasaas', //we generate DID after
           Ether: 0.0,
           Telephone: phone,
           password: password,
@@ -70,7 +68,6 @@ function registerUser(request, response) {
         const createIdentity = require('../../../configs/web3')
         createIdentity(newUser, response, mongoose, httpResponses).then(function (resp) {
           console.log(resp)
-          console.log('Ha funcionado')
         })
       });     
     }

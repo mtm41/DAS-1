@@ -1,7 +1,7 @@
 'use strict';
 
 function index(request, response) {
-  response.json('This is home route');
+  response.json('API DAS ENDPOINT');
 }
 
 module.exports = {

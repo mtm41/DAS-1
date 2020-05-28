@@ -1,5 +1,6 @@
 'use strict';
 
+// DEFAULT CONFIG, BUT SOME HEADERS WERE CHANGED
 const express = require('express');
 const bodyParser = require('body-parser');
 const logger = require('morgan');

@@ -11,14 +11,10 @@ const User = mongoose.model('User', UserSchema);
 
 function getInteract(request, response) {
   try {
-    console.log('ENTRAAAA')
-    console.log(request.query)
     var tokenSize = request.query.token.length;
-    console.log(tokenSize)
     if (jwt.verify(request.query.token.substring(4,tokenSize), db.secret)){
-        console.log('VERIFICADO')
-        var randomHotBitsKey = 'HB1hSRsDEF8TWdksq9Ihz3w8mGF'
-        req("https://www.fourmilab.ch/cgi-bin/Hotbits.api?nbytes=18&fmt=password&npass=1&lpass=6&pwtype=2&apikey=" + randomHotBitsKey + "&pseudo=pseudo",
+        var randomHotBitsKey = process.env.HOTBITSKEY;
+        req("https://www.fourmilab.ch/cgi-bin/Hotbits.api?nbytes=18&fmt=password&npass=1&lpass=6&pwtype=2&apikey=" + randomHotBitsKey,
         async (err, res, body) => {
             if (err) { return console.log(err); }
             var token = parse.parse(body).querySelector("textarea").rawText.replace(/\n/g, '')
@@ -41,16 +37,14 @@ function getInteract(request, response) {
                   }, function(error, user) {
                     if (error) throw error;
                     if (!user) {
-                        throw new Error('Usuario no encontrado')
+                        throw new Error('User not found')
                     }
 
                     var last2FAVerification = user.lastInteractionVerification;
                     var last2FACode = user.lastCode;
-                    console.log(last2FAVerification)
-                    console.log(last2FACode)
                     if (last2FAVerification && last2FACode){
                         if (last2FAVerification < Date.now()){
-                            //sms(phone, token)
+                            sms(phone, token) // send SMS
                             user.lastInteractionVerification = Date.now() + 1 * 3600 * 1000;
                             user.lastCode = token;
                             user.save(function (err, user) {
@@ -66,7 +60,7 @@ function getInteract(request, response) {
                         var phone = decoded_jwt.Telephone;
                         console.log(phone)
                         console.log(token)
-                        //sms(phone, token)
+                        sms(phone, token)
                         user.lastInteractionVerification = Date.now() + 1 * 3600 * 1000;
                         user.lastCode = token;
                         user.save(function (err, user) {

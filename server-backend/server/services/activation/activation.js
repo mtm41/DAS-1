@@ -5,7 +5,6 @@ const db = require('../../../configs/db');
 
 
 function getActivation(req, res) {
-    console.log(req.params.activeToken)
     const options = {
         user: process.env.DB_REGISTER_USER,
         pass: process.env.DB_REGISTER_PASS,

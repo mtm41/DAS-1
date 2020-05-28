@@ -21,7 +21,7 @@ class DashboardPage extends Component {
                     <h5 class="mb-3">User Profile</h5>
                     <div class="row">
                         <div class="col-md-6">
-                            <h6>About</h6>
+                            <h6>Información del usuario</h6>
                             <p>
                                 <a class="profile-font">Nombre de usuario: </a>
                                 {jwtDecode(getCookie('token')).username}  

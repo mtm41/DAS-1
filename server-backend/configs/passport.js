@@ -1,6 +1,10 @@
+// JWT configuration through passport module
+
 let JwtStrategy = require('passport-jwt').Strategy;
 let ExtractJwt = require('passport-jwt').ExtractJwt;
-let User = require('../server/models/User');
+const mongoose = require('mongoose');
+const UserSchema = require('../server/models/User');
+const User = mongoose.model('User', UserSchema);
 let config = require('./db');
 
 function setPassortConfigs(passport) {

@@ -9,8 +9,16 @@ contract DidResolver is Owned {
         string publicKeyPem;
     }
 
+    struct Credential {
+        string name;
+        string emitDate;
+        string expireDate;
+        address emitDID;
+    }
+
     struct DidDocument {
         string context;
+        Credential cred;
         PublicKey pubKey;
     }
     
@@ -35,6 +43,16 @@ contract DidResolver is Owned {
         return address(0);
     }
 
+    function emitCredential(address emitDid, address receiptDid, string memory credName, string memory emitDate, string memory expireDate) public checkOwned returns(bool){
+        
+        if (isRegistered(receiptDid) == address(0)){
+            Credential memory cred = Credential({name: credName, emitDate: emitDate, expireDate: expireDate, emitDID: emitDid});
+            document[receiptDid].cred = cred;
+            return true;
+        }
+        return false;
+    }
+
     function registerID(address id, string memory pubKey) public checkOwned returns(address){
         address identity = address(0);
 
@@ -44,7 +62,9 @@ contract DidResolver is Owned {
             PublicKey memory pk = PublicKey({algh: 'RsaVerificationKey2048',
                                       publicKeyPem: pubKey });
 
-            DidDocument memory doc = DidDocument({context:'https://www.w3.org/ns/did/v1', pubKey: pk});
+            Credential memory cred = Credential({name: '', emitDate: '', expireDate: '', emitDID: address(0)});
+
+            DidDocument memory doc = DidDocument({context:'https://www.w3.org/ns/did/v1', cred: cred, pubKey: pk});
             document[id] = doc;
             identity = id;
         }

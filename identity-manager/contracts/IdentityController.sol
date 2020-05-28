@@ -16,6 +16,14 @@ contract IdentityController is Owned {
         address indexed owner
     );
 
+    function sendCredential(address org, address user, string memory credName, string memory emitDate, string memory expireDate) public checkOwned returns(bool) {
+        bool res = false;
+        if (org != address(0)){
+            res = resolver.emitCredential(org, user, credName, emitDate, expireDate);
+        }
+        return res;
+    }
+
     function createIdentity(address owner, string memory pubKey) public checkOwned returns(address) {
         address registeredID = resolver.registerID(owner, pubKey);
         //Trying to register user
@@ -35,11 +43,6 @@ contract IdentityController is Owned {
 */
     function forwardTo(address owner, address destinationContract, uint value, bytes memory data) public{
         IdentityProxy proxy1 = idproxies[owner];
-        proxy1.forward(destinationContract, value, data);
-    }
-
-    function forwardToTest(address owner, address destinationContract, uint value, bytes memory data) public{
-        IdentityProxy proxy1 = new IdentityProxy();
         proxy1.forward(destinationContract, value, data);
     }
 

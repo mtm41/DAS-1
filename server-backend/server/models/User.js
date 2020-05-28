@@ -3,6 +3,43 @@ const bcrypt = require('bcrypt');
 require('mongoose-double')(mongoose);
 
 var SchemaTypes = mongoose.Schema.Types;
+
+const Credential = new mongoose.Schema({
+  name: {
+    type: String,
+    unique: true,
+    index: true
+  },
+  emitDate: {
+    type: Date
+  },
+  expiredDate: {
+    type: Date
+  },
+  digitalSign: {
+    type: String,
+    unique: true
+  }
+})
+
+const Organization = new mongoose.Schema({
+  name: {
+    type: String,
+    unique: true,
+    index: true
+  },
+  cif: {
+    type: String,
+    unique: true,
+    index: true
+  },
+  DID: {
+    type: String,
+    unique: true
+  },
+  credential: [Credential]
+})
+
 const UserSchema = new mongoose.Schema({
   email: {
     type: String,
@@ -50,7 +87,8 @@ const UserSchema = new mongoose.Schema({
   lastCode: {
     type: String,
     required: false
-  }
+  },
+  Organizations: [Organization]
 });
 
 UserSchema.pre('save', function(next) {

@@ -10,7 +10,7 @@ import LoginPage from '../components/loginPage';
 import RegisterPage from '../components/registerPage';
 import DashboardPage from '../components/dashboardPage';
 import InteractPage from '../components/interactPage';
-import OrganizationPage from '../components/organization';
+import OrganizationPage from '../components/organizationPage';
 
 class App extends Component {
   render() {

@@ -3,7 +3,6 @@ import NavMenu from './navMenu';
 import { interactAction } from '../actions/interactAction';
 import { connect } from 'react-redux';
 import { getCookie } from '../utils/cookies';
-var jwtDecode = require('jwt-decode');
 
 const xss = require("xss");
 
@@ -11,7 +10,6 @@ const xss = require("xss");
 class InteractPage extends Component {
 
   onHandlePreInteraction = (event) => {
-    console.log('Pre-interaction')
 
     fetch('http://localhost:3000/api/v1/preinteract?token=' + getCookie('token'), {method: 'POST', credentials: 'same-origin'})
     .then(function(resp) {
@@ -33,12 +31,13 @@ class InteractPage extends Component {
             smsFieldList.hidden = false;
             buttonI.disabled = true;
             buttonI.hidden = true;
-            button.disabled = false;
-            button.hidden = false;
-          } else
+            console.log(button)
+            button.removeAttribute('hidden')
+            button.removeAttribute('disabled')
+            console.log(button)
+          } else {
             smsFieldList.disabled = false
             var smsInput = document.querySelector('#sms-code')
-            console.log(data.code)
             smsInput.value = data.code;
             console.log(smsFieldList.textContent)
             button.disabled = false;
@@ -46,6 +45,7 @@ class InteractPage extends Component {
             button.click()
             button.disabled = true;
             button.hidden = true;
+          }
       } else
           alert('Error: ' + data.error.message)
     })
@@ -58,11 +58,8 @@ class InteractPage extends Component {
   onHandleInteraction = (event) => {
     event.preventDefault();
 
-    console.log('ENTRA')
     let smartContract = xss(event.target.ethaddr.value);
     let sms = xss(event.target.smscode.value);
-    console.log(smartContract);
-    console.log(sms)
     var token = getCookie('token')
 
     const data = {
@@ -96,8 +93,8 @@ class InteractPage extends Component {
                     </fieldset>
                 </div>
             </div>
-            <div class="container-login100-form-btn">
-              <button id="form-button" class="login100-form-btn" disabled hidden>Enviar</button>
+            <div id="form-button-container" class="container-login100-form-btn">
+              <button id="form-button" class="login100-form-btn" hidden disabled>Enviar</button>
             </div>
         </form>
         <div class="container-login100-form-btn">

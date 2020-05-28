@@ -6,6 +6,6 @@ const interactService = require('../../services/ethereum/interact');
 
 let router = express.Router();
 
-router.post('/',interactService.getInteract);
+router.post('/',passport.authenticate('jwt', { session: false }), interactService.getInteract);
 
 module.exports = router;

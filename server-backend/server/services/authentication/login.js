@@ -1,11 +1,7 @@
 'use strict';
 
-const express = require('express');
-const apiRoutes = express.Router();
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
-const passport = require('passport');
-const db = require('../../../configs/db');
 
 const UserSchema = require('../../models/User');
 const User = mongoose.model('User', UserSchema);
@@ -31,23 +27,22 @@ function loginUser(request, response) {
   
   mongoose.options = options
   mongoose.connect(db.database, options, function(error) {
-    console.log('Se va a intentar iniciar sesion')
     let email = xss(sanitize(request.body.email))
     let password = xss(sanitize(request.body.password))
-    console.log(password)
     User.findOne({
-      email: email
+      email: email,
+      active: true
     }, function(error, user) {
       if (error) throw error;
 
       if (!user) {
         return response.send(httpResponse.onAuthenticationFail);
       }
-      console.log('No se ha lanzado error, a ver si la pass coincide')
-      console.log(user)
+    
       // Check if password matches
       user.comparePassword(password, function(error, isMatch) {
         if (isMatch && !error) {
+          user.password = '' //We dont want to share hashes password
           var token = jwt.sign(user.toJSON(), db.secret, {
             expiresIn: "15m"
           });

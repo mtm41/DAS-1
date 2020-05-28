@@ -2,7 +2,7 @@
 
 function getDashboard(request, response) {
   
-  response.json('This is from dashboard');
+  response.json('HOME');
 }
 
 module.exports = {

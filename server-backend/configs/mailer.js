@@ -20,8 +20,8 @@ var defaultMail = {
     text: 'test text',
     auth: {
         user: 'das.ethereum@gmail.com',
-        refreshToken: '1//04FOF69oudiIECgYIARAAGAQSNwF-L9Irsy_MG1x006wIPGvSRmME85xdyF_3gGmMNuajrAj-7uuX3bsIOP3Wf8w34U4IZ8C2SAw',
-        accessToken: 'ya29.a0Ae4lvC1MajfS1ZRJAHz_HRpVXS9MZ5beug80uXe2jvfU2NlbP2eFKPnOBAYf4CnEi_v0g_iuuRzpbTXCjKXaoEHPTLUsdvYj3pU2pPT5OS1G3g7cI6vXg1HBYYrLEYVOWnzPG_3pDs36ujiikbyBzw3vkZeu3SQ97W0',
+        refreshToken: '1//04DlSEkdsG9NcCgYIARAAGAQSNwF-L9Irs4XZxRqVhpENQ188CMmkCIgWJU9DwcCc5Op0_oaBuJgI5WMNiywv4LzbuDSFjiqqSV4',
+        accessToken: 'ya29.a0AfH6SMCA7xiU4c3XuUhSfxjQvZYy0AtiYICbADkmGxts30-2cikrkl62PxXH8rtZjFBL_Bu_iZH8jyURQjX0O7pWRxFqaR0lJPqyIxOvdfcH_KunNDLsEJnwQ_BF3m3vOIvbg7nFZB2TZRuLqwuoPBaphuIgvmE47aC1',
     }
 };
 
